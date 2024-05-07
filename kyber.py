@@ -3,12 +3,6 @@ from hashlib import sha3_256, sha3_512, shake_128, shake_256
 from polynomials import *
 from modules import *
 from ntt_helper import NTTHelperKyber
-try:
-    from aes256_ctr_drbg import AES256_CTR_DRBG
-except ImportError as e:
-    print("Error importing AES CTR DRBG. Have you tried installing requirements?")
-    print(f"ImportError: {e}\n")
-    print("Kyber will work perfectly fine with system randomness")
     
     
 DEFAULT_PARAMETERS = {
@@ -65,7 +59,6 @@ class Kyber:
         Note: requires pycryptodome for AES impl.
         (Seemed overkill to code my own AES for Kyber)
         """
-        self.drbg = AES256_CTR_DRBG(seed)
         self.random_bytes = self.drbg.random_bytes
 
     def reseed_drbg(self, seed):
